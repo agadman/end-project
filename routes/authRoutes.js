@@ -1,6 +1,3 @@
-/**
- * Routes for authentication
- */
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -62,6 +59,37 @@ router.post('/menu', authenticateToken, async (req, res) => {
     res.status(201).json(newItem);
   } catch (error) {
     res.status(500).json({ message: 'Failed to add menu item' });
+  }
+});
+
+// Delete a menu item (by ID)
+router.delete('/menu/:id', authenticateToken, async (req, res) => {
+  try {
+    const deletedItem = await MenuItem.findByIdAndDelete(req.params.id);
+    if (!deletedItem) {
+      return res.status(404).json({ message: 'Menu item not found' });
+    }
+    res.json({ message: 'Menu item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete menu item' });
+  }
+});
+
+// Update a menu item (by ID)
+router.put('/menu/:id', authenticateToken, async (req, res) => {
+  try {
+    const { name, description, price, category } = req.body;
+    const updatedItem = await MenuItem.findByIdAndUpdate(
+      req.params.id,
+      { name, description, price, category },
+      { new: true, runValidators: true }
+    );
+    if (!updatedItem) {
+      return res.status(404).json({ message: 'Menu item not found' });
+    }
+    res.json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update menu item' });
   }
 });
 
