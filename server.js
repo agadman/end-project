@@ -3,12 +3,14 @@ const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoutes');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(cors());
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DATABASE).then(() => {

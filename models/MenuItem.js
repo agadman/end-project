@@ -13,7 +13,7 @@ const menuItemSchema = new mongoose.Schema({
   price: Number,
   category: {
     type: String,
-    enum: ['starter', 'entree', 'dessert', 'drink'],
+    enum: ['starter', 'main', 'dessert', 'drink'],
     required: true
   }
 });

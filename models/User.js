@@ -57,11 +57,11 @@ userSchema.statics.login = async function(username, password) {
   try {
     const user = await this.findOne({ username });
     if (!user) {
-      throw new Error('Incorrect username/password');
+      throw new Error('Felaktigt användarnamn/lösenord');
     }
     const isPasswordMatch = await user.comparePassword(password);
     if (!isPasswordMatch) {
-      throw new Error('Incorrect username/password');
+      throw new Error('Felaktigt användarnamn/lösenord');
     }
     return user;
   } catch (error) {

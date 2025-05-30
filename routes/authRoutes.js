@@ -26,11 +26,11 @@ router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
-      return res.status(400).json({ message: 'Username and password are required' });
+      return res.status(400).json({ message: 'Fyll i användarnamn/lösenord' });
     }
     const user = await User.findOne({ username });
     if (!user || !(await user.comparePassword(password))) {
-      return res.status(401).json({ error: 'Incorrect username/password' });
+      return res.status(401).json({ error: 'Felaktigt användarnamn/lösenord' });
     }
     const payload = { username };
     const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
