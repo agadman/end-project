@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Meny item schema
+// Menyitem schema
 const menuItemSchema = new mongoose.Schema({
   name: { 
     type: String, 
